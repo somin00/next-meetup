@@ -1,14 +1,27 @@
 import MeetupList from "../components/meetups/MeetupList";
+import { connectToDB } from "../lib/db";
 
-const DUMMY_MEETUP = [
-  { id: 1, title: "meetup1", address: "suwon", image: "/kiyomi.jpeg" },
-  { id: 2, title: "meetup2", address: "dong-tan", image: "/kiyomi.jpeg" },
-  { id: 3, title: "meetup3", address: "seoul", image: "/kiyomi.jpeg" },
-];
-export default function Home() {
+export default function Home({ meetups }) {
   return (
     <>
-      <MeetupList meetups={DUMMY_MEETUP} />
+      <MeetupList meetups={meetups} />
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const client = await connectToDB();
+  const meetups = await client.db().collection("meetups").find().toArray();
+
+  client.close();
+  return {
+    props: {
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: "/kiyomi.jpeg",
+        id: meetup._id.toString(),
+      })),
+    },
+  };
+};
