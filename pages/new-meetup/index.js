@@ -1,5 +1,6 @@
 import NewMeetupForm from "../../components/meetups/NewMeetupForm";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function NewMeetup() {
   const router = useRouter();
@@ -21,5 +22,13 @@ export default function NewMeetup() {
     }
   };
 
-  return <NewMeetupForm onAddMeetup={onAddMeetup} />;
+  return (
+    <>
+      <Head>
+        <title>새 일정 등록</title>
+        <meta name="description" content="새 일정을 등록해보세요!" />
+      </Head>
+      <NewMeetupForm onAddMeetup={onAddMeetup} />
+    </>
+  );
 }

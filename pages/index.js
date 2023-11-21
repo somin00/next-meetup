@@ -1,9 +1,14 @@
+import Head from "next/head";
 import MeetupList from "../components/meetups/MeetupList";
 import { connectToDB } from "../lib/db";
 
 export default function Home({ meetups }) {
   return (
     <>
+      <Head>
+        <title>전체 일정</title>
+        <meta name="description" content="모든 일정을 확인해보세요!" />
+      </Head>
       <MeetupList meetups={meetups} />
     </>
   );

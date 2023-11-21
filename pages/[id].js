@@ -1,10 +1,19 @@
 import { ObjectId } from "mongodb";
 import MeetupDetail from "../components/meetups/MeetupDetail";
 import { connectToDB } from "../lib/db";
+import Head from "next/head";
 
 export default function MeetupDetailPage({ meetup }) {
   const { image, title, address, description } = meetup;
-  return <MeetupDetail image={image} title={title} address={address} description={description} />;
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Head>
+      <MeetupDetail image={image} title={title} address={address} description={description} />
+    </>
+  );
 }
 
 export const getStaticPaths = async () => {
