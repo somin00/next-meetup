@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
         id: meetup._id.toString(),
       },
     })),
-    fallback: true,
+    fallback: "blocking",
   };
 };
 export const getStaticProps = async (context) => {
